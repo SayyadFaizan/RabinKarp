@@ -5,31 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rabin-Karp Algorithm Visualizer</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap');
+
         :root {
-            --bg: #f8fafc;
-            --text-main: #1e293b;
-            --card-bg: #ffffff;
-            --border: #e2e8f0;
+            --bg: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --border: #334155;
             --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --success: #22c55e;
-            --error: #ef4444;
+            --primary-glow: rgba(59, 130, 246, 0.5);
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.5);
+            --error: #f43f5e;
+            --error-glow: rgba(244, 63, 94, 0.5);
             --warning: #f59e0b;
-            --tile-bg: #f1f5f9;
-            --tile-size: 50px;
+            --tile-bg: #0f172a;
+            --tile-size: 60px; /* Slightly larger for visibility */
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
             background-color: var(--bg);
             color: var(--text-main);
             padding: 2rem;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -38,65 +44,155 @@
         .header {
             text-align: center;
             margin-bottom: 2rem;
+            width: 100%;
         }
 
-        .controls {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- NEW LAYOUT CONTAINER --- */
+        .app-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        @media (min-width: 1100px) {
+            .app-layout {
+                grid-template-columns: 1.2fr 1fr; /* Left side takes slightly more space, right side holds info */
+                align-items: start;
+            }
+        }
+
+        .left-col {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        input {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 1rem;
-            text-transform: uppercase;
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 1rem;
+        /* --- CONTROLS --- */
+        /* --- CONTROLS --- */
+	.controls {
+	    background: var(--card-bg);
+	    padding: 1.5rem;
+	    border-radius: 16px;
+	    border: 1px solid var(--border);
+	    display: flex;
+	    gap: 1rem; /* Reduced gap to save space */
+	    align-items: flex-end; /* Aligns buttons with the bottom of the inputs perfectly */
+	    flex-wrap: wrap;
+	    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+	}
+
+	.input-group {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 0.5rem;
+	}
+
+	.input-group label {
+	    font-size: 0.8rem; /* Slightly smaller label */
+	    color: var(--text-muted);
+	    text-transform: uppercase;
+	    letter-spacing: 1px;
+	    font-weight: 600;
+	}
+
+	input {
+	    background: var(--bg);
+	    color: var(--text-main);
+	    padding: 0.6rem 0.8rem; /* Tighter padding */
+	    border: 1px solid var(--border);
+	    border-radius: 8px;
+	    font-size: 1rem; /* Reduced font size */
+	    text-transform: uppercase;
+	    font-family: 'Fira Code', monospace;
+	    width: 140px; /* Reduced width so it fits better */
+	    transition: border-color 0.3s;
+	}
+
+	input:focus {
+	    outline: none;
+	    border-color: var(--primary);
+	    box-shadow: 0 0 0 3px var(--primary-glow);
+	}
+
+	.button-group {
+	    display: flex;
+	    gap: 0.8rem; /* Tighter gap between buttons */
+	    /* margin-top removed because align-items: flex-end handles it smoothly now */
+	}
+
+	button {
+	    background-color: var(--primary);
+	    color: white;
+	    border: none;
+	    padding: 0.65rem 1rem; /* Smaller button padding */
+	    border-radius: 8px;
+	    font-weight: 600;
+	    cursor: pointer;
+	    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+	    font-size: 0.95rem; /* Slightly smaller button text */
+	}
+
+	button:hover:not(:disabled) { 
+	    transform: translateY(-3px) scale(1.02);
+	    box-shadow: 0 6px 15px var(--primary-glow);
+	}
+
+	button:disabled { 
+	    background-color: var(--border); 
+	    color: var(--text-muted);
+	    cursor: not-allowed; 
+	    transform: none;
+	    box-shadow: none;
+	}
+
+        #step-btn {
+            background-color: var(--warning);
+            color: #000;
+        }
+        #step-btn:hover:not(:disabled) {
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.4);
         }
 
-        button:hover { background-color: var(--primary-hover); }
-        button:disabled { background-color: #cbd5e1; cursor: not-allowed; }
-
+        /* --- VISUALIZER --- */
         .viz-container {
             background: var(--card-bg);
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
             width: 100%;
-            max-width: 900px;
             overflow-x: auto;
             position: relative;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
             min-height: 250px;
         }
 
         .string-row {
             display: flex;
-            gap: 8px;
-            margin-bottom: 1rem;
+            gap: 12px;
+            margin-bottom: 1.5rem;
             position: relative;
         }
 
         #pattern-row {
             position: absolute;
-            transition: left 0.5s ease-in-out;
+            transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             left: 0;
         }
 
@@ -105,102 +201,272 @@
             height: var(--tile-size);
             background: var(--tile-bg);
             border: 2px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-family: 'Fira Code', monospace;
             color: var(--text-main);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            /* New Entrance Animation */
+            animation: popIn 0.4s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.8);
         }
 
-        .char-tile.active { border-color: var(--primary); box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
-        .char-tile.match { background: var(--success); color: white; border-color: var(--success); }
-        .char-tile.mismatch { background: var(--error); color: white; border-color: var(--error); }
-
-        .info-panel {
-            margin-top: 2rem;
-            width: 100%;
-            max-width: 900px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .char-tile .ascii-val {
+            font-size: 0.8rem; /* Made larger */
+            color: var(--text-muted);
+            position: absolute;
+            bottom: 4px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
         }
 
+        /* Tile States */
+        .char-tile.active { 
+            border-color: var(--primary); 
+            box-shadow: 0 0 15px var(--primary-glow); 
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        .char-tile.match { 
+            background: rgba(16, 185, 129, 0.2); 
+            border-color: var(--success); 
+            box-shadow: 0 0 15px var(--success-glow);
+            color: var(--success);
+        }
+        .char-tile.mismatch { 
+            background: rgba(244, 63, 94, 0.2); 
+            border-color: var(--error); 
+            box-shadow: 0 0 15px var(--error-glow);
+            color: var(--error);
+        }
+        .char-tile.leaving {
+            border-color: var(--error);
+            opacity: 0.5;
+            transform: translateY(-15px) scale(0.9);
+        }
+        .char-tile.entering {
+            border-color: var(--success);
+            transform: translateY(15px) scale(1.1);
+        }
+
+        /* --- INFO PANEL & CARDS --- */
         .info-card {
             background: var(--card-bg);
             padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
         }
 
-        .hash-value {
-            font-size: 2rem;
-            font-weight: bold;
-            font-family: monospace;
-            color: var(--primary);
-            margin: 0.5rem 0;
+        .info-card h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
         }
 
         #status-msg {
-            grid-column: 1 / -1;
-            padding: 1rem;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 1.2rem;
+            border-radius: 12px;
+            font-weight: 600;
             text-align: center;
             font-size: 1.2rem;
-            background: var(--tile-bg);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .formula {
-            font-family: monospace;
-            background: var(--bg);
-            padding: 0.5rem;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-            display: block;
-            font-size: 0.9rem;
+        .hash-display-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 0.5rem;
         }
+
+        .hash-box {
+            text-align: center;
+        }
+
+        .hash-box span {
+            display: block;
+            font-size: 1rem; /* Larger */
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* MASSIVELY INCREASED HASH SIZES FOR PROJECTORS */
+        .hash-value {
+            font-size: 3.5rem; 
+            font-weight: 800;
+            font-family: 'Fira Code', monospace;
+            color: var(--text-main);
+            background: var(--bg);
+            padding: 0.5rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            min-width: 140px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-block;
+        }
+
+        .hash-value.highlight {
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: scale(1.08);
+        }
+
+        .hash-value.success {
+            color: var(--success);
+            border-color: var(--success);
+            box-shadow: 0 0 20px var(--success-glow);
+        }
+
+        .math-pipeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.1rem; /* Made larger */
+            background: var(--bg);
+            padding: 1.2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .math-step {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border);
+        }
+        .math-step:last-child { 
+            border-bottom: none; 
+            font-weight: 800; 
+            font-size: 1.3rem; 
+            color: var(--primary); 
+            margin-top: 0.5rem;
+        }
+        
+        .math-op { color: var(--text-muted); width: 140px; }
+        .math-val { color: var(--text-main); text-align: right; }
+        
+        .text-red { color: var(--error); }
+        .text-green { color: var(--success); }
+        .text-blue { color: var(--primary); }
+
+        /* --- ANIMATIONS --- */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            70% { transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+        }
+        .shake { animation: shake 0.4s ease-in-out; }
+
+        @keyframes pulse-match {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 var(--success-glow); }
+            50% { transform: scale(1.1); box-shadow: 0 0 25px 15px var(--success-glow); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 var(--success-glow); }
+        }
+        .pulse-match { animation: pulse-match 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+        @keyframes valueUpdate {
+            0% { transform: scale(1); color: var(--text-main); }
+            50% { transform: scale(1.2); color: var(--primary); }
+            100% { transform: scale(1); }
+        }
+        .value-update { animation: valueUpdate 0.4s ease-out; }
+
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>Rabin-Karp Algorithm</h1>
-        <p>Step-by-step visualizer for string matching using Rolling Hashes</p>
+        <p style="color: var(--text-muted); font-size: 1.2rem;">Visualizing String Matching with Rolling Hashes</p>
     </div>
 
-    <div class="controls">
-        <label>Text: <input type="text" id="text-input" value="ABCCABBC" maxlength="15"></label>
-        <label>Pattern: <input type="text" id="pattern-input" value="ABB" maxlength="5"></label>
-        <button id="start-btn">Start / Reset</button>
-        <button id="step-btn" disabled>Next Step</button>
-    </div>
+    <div class="app-layout">
+        
+        <div class="left-col">
+            <div class="controls">
+                <div class="input-group">
+                    <label>Text to search</label>
+                    <input type="text" id="text-input" value="ABCCABBC" maxlength="15">
+                </div>
+                <div class="input-group">
+                    <label>Pattern</label>
+                    <input type="text" id="pattern-input" value="ABB" maxlength="5">
+                </div>
+                <div class="button-group">
+                    <button id="start-btn">Initialize</button>
+                    <button id="step-btn" disabled>Compare Hashes</button>
+                </div>
+            </div>
 
-    <div class="viz-container">
-        <div class="string-row" id="text-row"></div>
-        <div style="position: relative; height: 60px;">
-            <div class="string-row" id="pattern-row"></div>
+            <div class="viz-container">
+                <div class="string-row" id="text-row"></div>
+                <div style="position: relative; height: 80px;">
+                    <div class="string-row" id="pattern-row"></div>
+                </div>
+            </div>
+            
+            <div id="status-msg">Enter text and pattern, then click 'Initialize'.</div>
         </div>
-    </div>
 
-    <div class="info-panel">
-        <div id="status-msg">Click 'Start' to begin.</div>
-        <div class="info-card">
-            <h3>Target Pattern Hash</h3>
-            <div class="hash-value" id="pattern-hash">-</div>
-            <small>Calculated once at the beginning.</small>
+        <div class="right-col">
+            <div class="info-card">
+                <h3>Hash Comparison</h3>
+                <div class="hash-display-container">
+                    <div class="hash-box">
+                        <span>Pattern Hash</span>
+                        <div class="hash-value" id="pattern-hash">-</div>
+                    </div>
+                    <div style="font-size: 3rem; color: var(--border); font-weight: bold; margin-top: 1.5rem;">=</div>
+                    <div class="hash-box">
+                        <span>Window Hash</span>
+                        <div class="hash-value" id="window-hash">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Rolling Hash Calculation</h3>
+                <div class="math-pipeline" id="hash-formula">
+                    <div style="color: var(--text-muted); text-align: center; padding: 2rem 1rem;">
+                        Awaiting calculation...
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="info-card">
-            <h3>Current Window Hash</h3>
-            <div class="hash-value" id="window-hash">-</div>
-            <code class="formula" id="hash-formula">Awaiting calculation...</code>
-        </div>
+
     </div>
 
     <script>
-        // Prime modulus and base for hashing (kept small for presentation readability)
         const q = 101; 
         const d = 256; 
 
@@ -210,7 +476,7 @@
         let pHash = 0;
         let tHash = 0;
         let h = 1;
-        let stepState = 0; // 0: Compare Hash, 1: Verify Chars, 2: Slide & Roll
+        let stepState = 0; 
 
         const textRow = document.getElementById('text-row');
         const patternRow = document.getElementById('pattern-row');
@@ -221,6 +487,26 @@
         const tHashDisplay = document.getElementById('window-hash');
         const formulaDisplay = document.getElementById('hash-formula');
 
+        function createTile(char, type, delayIndex) {
+            let div = document.createElement('div');
+            div.className = `char-tile ${type}-tile`;
+            div.innerText = char;
+            div.style.animationDelay = `${delayIndex * 0.05}s`; // Staggered pop-in effect
+            
+            let ascii = document.createElement('div');
+            ascii.className = 'ascii-val';
+            ascii.innerText = char.charCodeAt(0);
+            div.appendChild(ascii);
+            
+            return div;
+        }
+
+        function triggerValueAnimation(element) {
+            element.classList.remove('value-update');
+            void element.offsetWidth; // trigger reflow
+            element.classList.add('value-update');
+        }
+
         function init() {
             text = document.getElementById('text-input').value.toUpperCase();
             pattern = document.getElementById('pattern-input').value.toUpperCase();
@@ -230,35 +516,28 @@
                 return;
             }
 
-            // Reset UI
             textRow.innerHTML = '';
             patternRow.innerHTML = '';
             patternRow.style.left = '0px';
             currentPos = 0;
             stepState = 0;
             stepBtn.disabled = false;
+            stepBtn.innerText = "Compare Hashes";
 
-            // Render Tiles
+            let index = 0;
             for (let char of text) {
-                let div = document.createElement('div');
-                div.className = 'char-tile text-tile';
-                div.innerText = char;
-                textRow.appendChild(div);
+                textRow.appendChild(createTile(char, 'text', index++));
             }
+            index = 0;
             for (let char of pattern) {
-                let div = document.createElement('div');
-                div.className = 'char-tile pattern-tile';
-                div.innerText = char;
-                patternRow.appendChild(div);
+                patternRow.appendChild(createTile(char, 'pattern', index++));
             }
 
-            // Pre-calculate 'h' = Math.pow(d, M-1) % q
             h = 1;
             for (let i = 0; i < pattern.length - 1; i++) {
                 h = (h * d) % q;
             }
 
-            // Initial Hashes
             pHash = 0;
             tHash = 0;
             for (let i = 0; i < pattern.length; i++) {
@@ -268,9 +547,22 @@
 
             pHashDisplay.innerText = pHash;
             tHashDisplay.innerText = tHash;
-            updateStatus(`Initial Hashes Calculated. Ready to compare window 0.`, "var(--tile-bg)");
-            formulaDisplay.innerText = `Initial Window Hash`;
-            highlightWindow(0, 'active');
+            
+            triggerValueAnimation(pHashDisplay);
+            triggerValueAnimation(tHashDisplay);
+            
+            pHashDisplay.className = 'hash-value';
+            tHashDisplay.className = 'hash-value highlight';
+
+            updateStatus(`Initialization complete. Base (d) = ${d}, Prime (q) = ${q}.`, "var(--card-bg)", "var(--text-main)");
+            
+            formulaDisplay.innerHTML = `
+                <div class="math-step"><span class="math-op">Initial Window:</span> <span class="math-val">O(M) time</span></div>
+                <div class="math-step"><span class="math-op">Characters:</span> <span class="math-val">"${text.substring(0, pattern.length)}"</span></div>
+                <div class="math-step"><span class="math-op">Hash Value:</span> <span class="math-val text-blue">${tHash}</span></div>
+            `;
+            
+            setTimeout(() => highlightWindow(0, 'active'), pattern.length * 50 + 100);
         }
 
         function step() {
@@ -281,17 +573,22 @@
             highlightWindow(currentPos, 'active');
 
             if (stepState === 0) {
-                // Step 1: Compare Hashes
                 if (pHash === tHash) {
-                    updateStatus(`Hashes Match (${pHash} == ${tHash})! Now verifying characters...`, "var(--warning)");
+                    updateStatus(`Hashes Match (${pHash} == ${tHash})! Potential match found.`, "rgba(245, 158, 11, 0.2)", "var(--warning)");
+                    pHashDisplay.classList.add('pulse-match');
+                    tHashDisplay.classList.add('pulse-match');
+                    stepBtn.innerText = "Verify Characters";
                     stepState = 1;
                 } else {
-                    updateStatus(`Hashes Mismatch (${pHash} != ${tHash}). Characters are definitely different.`, "var(--tile-bg)");
-                    stepState = 2; // Skip to slide
+                    updateStatus(`Hashes Mismatch (${pHash} != ${tHash}). Characters are definitely different.`, "rgba(244, 63, 94, 0.1)", "var(--error)");
+                    tHashDisplay.classList.remove('highlight');
+                    tHashDisplay.classList.add('shake');
+                    setTimeout(() => tHashDisplay.classList.remove('shake'), 500);
+                    stepBtn.innerText = "Slide & Roll Hash";
+                    stepState = 2; 
                 }
             } 
             else if (stepState === 1) {
-                // Step 2: Verify Characters (Only if hash matched)
                 let match = true;
                 for (let j = 0; j < M; j++) {
                     if (text[currentPos + j] !== pattern[j]) {
@@ -301,42 +598,69 @@
                 }
 
                 if (match) {
-                    updateStatus(`Exact Match Found at index ${currentPos}!`, "var(--success)");
+                    updateStatus(`Exact Match Found at index ${currentPos}!`, "rgba(16, 185, 129, 0.2)", "var(--success)");
                     highlightWindow(currentPos, 'match');
                     document.querySelectorAll('.pattern-tile').forEach(t => t.classList.add('match'));
-                    stepState = 2; // Continue searching
+                    pHashDisplay.className = 'hash-value success pulse-match';
+                    tHashDisplay.className = 'hash-value success pulse-match';
+                    stepBtn.innerText = "Slide & Continue";
+                    stepState = 2; 
                 } else {
-                    updateStatus(`Spurious Hit (Hash Collision)! Characters don't match.`, "var(--error)");
+                    updateStatus(`Spurious Hit (Hash Collision)! Characters don't match.`, "rgba(244, 63, 94, 0.2)", "var(--error)");
                     highlightWindow(currentPos, 'mismatch');
                     document.querySelectorAll('.pattern-tile').forEach(t => t.classList.add('mismatch'));
+                    document.querySelector('.viz-container').classList.add('shake');
+                    setTimeout(() => document.querySelector('.viz-container').classList.remove('shake'), 500);
+                    stepBtn.innerText = "Slide & Roll Hash";
                     stepState = 2;
                 }
             } 
             else if (stepState === 2) {
-                // Step 3: Slide and compute Rolling Hash
                 if (currentPos < N - M) {
+                    let oldCharStr = text[currentPos];
+                    let newCharStr = text[currentPos + M];
                     let oldChar = text.charCodeAt(currentPos);
                     let newChar = text.charCodeAt(currentPos + M);
                     
-                    // Slide UI
+                    let tiles = document.querySelectorAll('.text-tile');
+                    tiles[currentPos].classList.add('leaving');
+                    tiles[currentPos + M].classList.add('entering');
+
                     currentPos++;
-                    patternRow.style.left = `${currentPos * 58}px`; // 50px width + 8px gap
+                    patternRow.style.left = `${currentPos * 72}px`; // Updated to match 60px tile + 12px gap
                     
-                    // Rolling Hash Math: tHash = (d * (tHash - txt[i]*h) + txt[i+M]) % q
                     let oldHash = tHash;
                     tHash = (d * (tHash - oldChar * h) + newChar) % q;
-                    if (tHash < 0) tHash = (tHash + q); // Handle negative modulo in JS
+                    if (tHash < 0) tHash = (tHash + q); 
 
                     tHashDisplay.innerText = tHash;
-                    formulaDisplay.innerText = `New = (d * (${oldHash} - '${String.fromCharCode(oldChar)}'*h) + '${String.fromCharCode(newChar)}') % q`;
+                    triggerValueAnimation(tHashDisplay);
                     
-                    updateStatus(`Window slid right. Rolling Hash calculated in O(1) time.`, "var(--tile-bg)");
-                    resetHighlights();
-                    highlightWindow(currentPos, 'active');
+                    tHashDisplay.className = 'hash-value highlight';
+                    pHashDisplay.className = 'hash-value';
+                    
+                    formulaDisplay.innerHTML = `
+                        <div class="math-step"><span class="math-op">Old Hash:</span> <span class="math-val">${oldHash}</span></div>
+                        <div class="math-step"><span class="math-op">- Remove '${oldCharStr}':</span> <span class="math-val text-red">-${oldChar} * ${h}</span></div>
+                        <div class="math-step"><span class="math-op">* Shift Left:</span> <span class="math-val text-blue">* ${d}</span></div>
+                        <div class="math-step"><span class="math-op">+ Add '${newCharStr}':</span> <span class="math-val text-green">+ ${newChar}</span></div>
+                        <div class="math-step"><span class="math-op">% Modulo:</span> <span class="math-val">% ${q}</span></div>
+                        <div class="math-step"><span class="math-op">New Hash =</span> <span class="math-val text-blue">${tHash}</span></div>
+                    `;
+                    
+                    updateStatus(`Window slid right. Calculated Rolling Hash in O(1) time.`, "var(--card-bg)", "var(--text-main)");
+                    
+                    setTimeout(() => {
+                        resetHighlights();
+                        highlightWindow(currentPos, 'active');
+                    }, 400); 
+
+                    stepBtn.innerText = "Compare Hashes";
                     stepState = 0;
                 } else {
-                    updateStatus(`Search Complete! Reached the end of the text.`, "var(--tile-bg)");
+                    updateStatus(`Search Complete! Reached the end of the text.`, "rgba(59, 130, 246, 0.2)", "var(--primary)");
                     stepBtn.disabled = true;
+                    stepBtn.innerText = "Done";
                     resetHighlights();
                 }
             }
@@ -353,20 +677,22 @@
 
         function resetHighlights() {
             document.querySelectorAll('.char-tile').forEach(t => {
-                t.classList.remove('active', 'match', 'mismatch');
+                t.classList.remove('active', 'match', 'mismatch', 'leaving', 'entering');
             });
+            pHashDisplay.classList.remove('pulse-match');
+            tHashDisplay.classList.remove('pulse-match');
         }
 
-        function updateStatus(msg, bgColor) {
+        function updateStatus(msg, bgColor, textColor) {
             statusMsg.innerText = msg;
             statusMsg.style.background = bgColor;
-            statusMsg.style.color = bgColor === "var(--tile-bg)" ? "var(--text-main)" : "white";
+            statusMsg.style.color = textColor;
+            statusMsg.style.borderColor = textColor;
         }
 
         startBtn.addEventListener('click', init);
         stepBtn.addEventListener('click', step);
 
-        // Initialize on load
         init();
     </script>
 </body>
