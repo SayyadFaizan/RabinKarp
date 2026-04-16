@@ -21,7 +21,7 @@
             --error-glow: rgba(244, 63, 94, 0.5);
             --warning: #f59e0b;
             --tile-bg: #0f172a;
-            --tile-size: 60px; /* Slightly larger for visibility */
+            --tile-size: 60px; 
         }
 
         * {
@@ -56,7 +56,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* --- NEW LAYOUT CONTAINER --- */
         .app-layout {
             display: grid;
             grid-template-columns: 1fr;
@@ -67,100 +66,89 @@
 
         @media (min-width: 1100px) {
             .app-layout {
-                grid-template-columns: 1.2fr 1fr; /* Left side takes slightly more space, right side holds info */
+                grid-template-columns: 1.2fr 1fr; 
                 align-items: start;
             }
         }
 
-        .left-col {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .right-col {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
+        .left-col { display: flex; flex-direction: column; gap: 1.5rem; }
+        .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
 
         /* --- CONTROLS --- */
-        /* --- CONTROLS --- */
-	.controls {
-	    background: var(--card-bg);
-	    padding: 1.5rem;
-	    border-radius: 16px;
-	    border: 1px solid var(--border);
-	    display: flex;
-	    gap: 1rem; /* Reduced gap to save space */
-	    align-items: flex-end; /* Aligns buttons with the bottom of the inputs perfectly */
-	    flex-wrap: wrap;
-	    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-	}
+        .controls {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 1rem; 
+            align-items: flex-end; 
+            flex-wrap: wrap;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
 
-	.input-group {
-	    display: flex;
-	    flex-direction: column;
-	    gap: 0.5rem;
-	}
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
 
-	.input-group label {
-	    font-size: 0.8rem; /* Slightly smaller label */
-	    color: var(--text-muted);
-	    text-transform: uppercase;
-	    letter-spacing: 1px;
-	    font-weight: 600;
-	}
+        .input-group label {
+            font-size: 0.8rem; 
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
 
-	input {
-	    background: var(--bg);
-	    color: var(--text-main);
-	    padding: 0.6rem 0.8rem; /* Tighter padding */
-	    border: 1px solid var(--border);
-	    border-radius: 8px;
-	    font-size: 1rem; /* Reduced font size */
-	    text-transform: uppercase;
-	    font-family: 'Fira Code', monospace;
-	    width: 140px; /* Reduced width so it fits better */
-	    transition: border-color 0.3s;
-	}
+        input {
+            background: var(--bg);
+            color: var(--text-main);
+            padding: 0.6rem 0.8rem; 
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem; 
+            text-transform: uppercase;
+            font-family: 'Fira Code', monospace;
+            width: 140px; 
+            transition: border-color 0.3s;
+        }
 
-	input:focus {
-	    outline: none;
-	    border-color: var(--primary);
-	    box-shadow: 0 0 0 3px var(--primary-glow);
-	}
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
 
-	.button-group {
-	    display: flex;
-	    gap: 0.8rem; /* Tighter gap between buttons */
-	    /* margin-top removed because align-items: flex-end handles it smoothly now */
-	}
+        .button-group {
+            display: flex;
+            gap: 0.8rem; 
+        }
 
-	button {
-	    background-color: var(--primary);
-	    color: white;
-	    border: none;
-	    padding: 0.65rem 1rem; /* Smaller button padding */
-	    border-radius: 8px;
-	    font-weight: 600;
-	    cursor: pointer;
-	    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-	    font-size: 0.95rem; /* Slightly smaller button text */
-	}
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.65rem 1rem; 
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.95rem; 
+        }
 
-	button:hover:not(:disabled) { 
-	    transform: translateY(-3px) scale(1.02);
-	    box-shadow: 0 6px 15px var(--primary-glow);
-	}
-
-	button:disabled { 
-	    background-color: var(--border); 
-	    color: var(--text-muted);
-	    cursor: not-allowed; 
-	    transform: none;
-	    box-shadow: none;
-	}
+        button:hover:not(:disabled) { 
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 15px var(--primary-glow);
+        }
+        
+        button:disabled { 
+            background-color: var(--border); 
+            color: var(--text-muted);
+            cursor: not-allowed; 
+            transform: none;
+            box-shadow: none;
+        }
 
         #step-btn {
             background-color: var(--warning);
@@ -212,14 +200,13 @@
             color: var(--text-main);
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            /* New Entrance Animation */
             animation: popIn 0.4s ease-out forwards;
             opacity: 0;
             transform: scale(0.8);
         }
 
-        .char-tile .ascii-val {
-            font-size: 0.8rem; /* Made larger */
+        .char-tile .val-display {
+            font-size: 0.8rem; 
             color: var(--text-muted);
             position: absolute;
             bottom: 4px;
@@ -227,34 +214,11 @@
             font-weight: 600;
         }
 
-        /* Tile States */
-        .char-tile.active { 
-            border-color: var(--primary); 
-            box-shadow: 0 0 15px var(--primary-glow); 
-            transform: scale(1.1);
-            z-index: 10;
-        }
-        .char-tile.match { 
-            background: rgba(16, 185, 129, 0.2); 
-            border-color: var(--success); 
-            box-shadow: 0 0 15px var(--success-glow);
-            color: var(--success);
-        }
-        .char-tile.mismatch { 
-            background: rgba(244, 63, 94, 0.2); 
-            border-color: var(--error); 
-            box-shadow: 0 0 15px var(--error-glow);
-            color: var(--error);
-        }
-        .char-tile.leaving {
-            border-color: var(--error);
-            opacity: 0.5;
-            transform: translateY(-15px) scale(0.9);
-        }
-        .char-tile.entering {
-            border-color: var(--success);
-            transform: translateY(15px) scale(1.1);
-        }
+        .char-tile.active { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); transform: scale(1.1); z-index: 10; }
+        .char-tile.match { background: rgba(16, 185, 129, 0.2); border-color: var(--success); box-shadow: 0 0 15px var(--success-glow); color: var(--success); }
+        .char-tile.mismatch { background: rgba(244, 63, 94, 0.2); border-color: var(--error); box-shadow: 0 0 15px var(--error-glow); color: var(--error); }
+        .char-tile.leaving { border-color: var(--error); opacity: 0.5; transform: translateY(-15px) scale(0.9); }
+        .char-tile.entering { border-color: var(--success); transform: translateY(15px) scale(1.1); }
 
         /* --- INFO PANEL & CARDS --- */
         .info-card {
@@ -299,19 +263,9 @@
             margin-bottom: 0.5rem;
         }
 
-        .hash-box {
-            text-align: center;
-        }
+        .hash-box { text-align: center; }
+        .hash-box span { display: block; font-size: 1rem; color: var(--text-muted); margin-bottom: 0.8rem; font-weight: 600; }
 
-        .hash-box span {
-            display: block;
-            font-size: 1rem; /* Larger */
-            color: var(--text-muted);
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* MASSIVELY INCREASED HASH SIZES FOR PROJECTORS */
         .hash-value {
             font-size: 3.5rem; 
             font-weight: 800;
@@ -326,25 +280,15 @@
             display: inline-block;
         }
 
-        .hash-value.highlight {
-            color: var(--primary);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px var(--primary-glow);
-            transform: scale(1.08);
-        }
-
-        .hash-value.success {
-            color: var(--success);
-            border-color: var(--success);
-            box-shadow: 0 0 20px var(--success-glow);
-        }
+        .hash-value.highlight { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); transform: scale(1.08); }
+        .hash-value.success { color: var(--success); border-color: var(--success); box-shadow: 0 0 20px var(--success-glow); }
 
         .math-pipeline {
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
             font-family: 'Fira Code', monospace;
-            font-size: 1.1rem; /* Made larger */
+            font-size: 1.1rem; 
             background: var(--bg);
             padding: 1.2rem;
             border-radius: 8px;
@@ -357,48 +301,21 @@
             padding: 0.5rem 0;
             border-bottom: 1px dashed var(--border);
         }
-        .math-step:last-child { 
-            border-bottom: none; 
-            font-weight: 800; 
-            font-size: 1.3rem; 
-            color: var(--primary); 
-            margin-top: 0.5rem;
-        }
+        .math-step:last-child { border-bottom: none; }
         
-        .math-op { color: var(--text-muted); width: 140px; }
+        .math-op { color: var(--text-muted); }
         .math-val { color: var(--text-main); text-align: right; }
         
         .text-red { color: var(--error); }
         .text-green { color: var(--success); }
         .text-blue { color: var(--primary); }
 
-        /* --- ANIMATIONS --- */
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            70% { transform: scale(1.1); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            50% { transform: translateX(8px); }
-            75% { transform: translateX(-8px); }
-        }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 70% { transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 50% { transform: translateX(8px); } 75% { transform: translateX(-8px); } }
         .shake { animation: shake 0.4s ease-in-out; }
-
-        @keyframes pulse-match {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 var(--success-glow); }
-            50% { transform: scale(1.1); box-shadow: 0 0 25px 15px var(--success-glow); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 var(--success-glow); }
-        }
+        @keyframes pulse-match { 0% { transform: scale(1); box-shadow: 0 0 0 0 var(--success-glow); } 50% { transform: scale(1.1); box-shadow: 0 0 25px 15px var(--success-glow); } 100% { transform: scale(1); box-shadow: 0 0 0 0 var(--success-glow); } }
         .pulse-match { animation: pulse-match 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
-
-        @keyframes valueUpdate {
-            0% { transform: scale(1); color: var(--text-main); }
-            50% { transform: scale(1.2); color: var(--primary); }
-            100% { transform: scale(1); }
-        }
+        @keyframes valueUpdate { 0% { transform: scale(1); color: var(--text-main); } 50% { transform: scale(1.2); color: var(--primary); } 100% { transform: scale(1); } }
         .value-update { animation: valueUpdate 0.4s ease-out; }
 
     </style>
@@ -407,20 +324,19 @@
 
     <div class="header">
         <h1>Rabin-Karp Algorithm</h1>
-        <p style="color: var(--text-muted); font-size: 1.2rem;">Visualizing String Matching with Rolling Hashes</p>
+        <p style="color: var(--text-muted); font-size: 1.2rem;">Visualizing Base-10 Polynomial Rolling Hashes</p>
     </div>
 
     <div class="app-layout">
-        
         <div class="left-col">
             <div class="controls">
                 <div class="input-group">
-                    <label>Text to search</label>
-                    <input type="text" id="text-input" value="ABCCABBC" maxlength="15">
+                    <label>Text (A-Z)</label>
+                    <input type="text" id="text-input" value="CCACCAAEDBA" maxlength="15">
                 </div>
                 <div class="input-group">
-                    <label>Pattern</label>
-                    <input type="text" id="pattern-input" value="ABB" maxlength="5">
+                    <label>Pattern (A-Z)</label>
+                    <input type="text" id="pattern-input" value="DBA" maxlength="5">
                 </div>
                 <div class="button-group">
                     <button id="start-btn">Initialize</button>
@@ -435,7 +351,7 @@
                 </div>
             </div>
             
-            <div id="status-msg">Enter text and pattern, then click 'Initialize'.</div>
+            <div id="status-msg">Enter text and pattern (A-Z only), then click 'Initialize'.</div>
         </div>
 
         <div class="right-col">
@@ -455,7 +371,7 @@
             </div>
 
             <div class="info-card">
-                <h3>Rolling Hash Calculation</h3>
+                <h3>Mathematical Pipeline</h3>
                 <div class="math-pipeline" id="hash-formula">
                     <div style="color: var(--text-muted); text-align: center; padding: 2rem 1rem;">
                         Awaiting calculation...
@@ -463,19 +379,19 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <script>
-        const q = 101; 
-        const d = 256; 
+        // Convert character to 1-26 value
+        function charVal(c) {
+            return c.charCodeAt(0) - 64; 
+        }
 
         let text = "";
         let pattern = "";
         let currentPos = 0;
         let pHash = 0;
         let tHash = 0;
-        let h = 1;
         let stepState = 0; 
 
         const textRow = document.getElementById('text-row');
@@ -491,28 +407,69 @@
             let div = document.createElement('div');
             div.className = `char-tile ${type}-tile`;
             div.innerText = char;
-            div.style.animationDelay = `${delayIndex * 0.05}s`; // Staggered pop-in effect
+            div.style.animationDelay = `${delayIndex * 0.05}s`;
             
-            let ascii = document.createElement('div');
-            ascii.className = 'ascii-val';
-            ascii.innerText = char.charCodeAt(0);
-            div.appendChild(ascii);
+            let valDisplay = document.createElement('div');
+            valDisplay.className = 'val-display';
+            valDisplay.innerText = charVal(char); // Display Base-10 1-26 value
+            div.appendChild(valDisplay);
             
             return div;
         }
 
         function triggerValueAnimation(element) {
             element.classList.remove('value-update');
-            void element.offsetWidth; // trigger reflow
+            void element.offsetWidth; 
             element.classList.add('value-update');
         }
 
+        function buildPolynomialHTML(str, title) {
+            let M = str.length;
+            let parts = [];
+            let val = 0;
+            for(let i = 0; i < M; i++) {
+                let c = str[i];
+                let v = charVal(c);
+                let power = M - 1 - i;
+                parts.push(`<span class="text-blue">${c}(${v})</span>×10<sup>${power}</sup>`);
+                val += v * Math.pow(10, power);
+            }
+            return `
+                <div class="math-step"><span class="math-op">${title}:</span></div>
+                <div class="math-step" style="justify-content: center; font-size: 1.2rem; padding: 1rem 0;">${parts.join(' + ')}</div>
+                <div class="math-step"><span class="math-op">Calculated Hash:</span> <span class="math-val text-blue" style="font-size: 1.5rem; font-weight: bold;">${val}</span></div>
+            `;
+        }
+
+        function buildRollingHTML(oldHash, oldChar, newChar, M, newHash) {
+            let oldV = charVal(oldChar);
+            let newV = charVal(newChar);
+            let power = M - 1;
+
+            return `
+                <div class="math-step"><span class="math-op">Old Hash:</span> <span class="math-val">${oldHash}</span></div>
+                <div class="math-step"><span class="math-op">- Remove '${oldChar}':</span> <span class="math-val text-red">-${oldV} × 10<sup>${power}</sup></span></div>
+                <div class="math-step"><span class="math-op">* Shift Left:</span> <span class="math-val text-blue">× 10</span></div>
+                <div class="math-step"><span class="math-op">+ Add '${newChar}':</span> <span class="math-val text-green">+ ${newV}</span></div>
+                <div class="math-step" style="margin-top: 1rem; border: none; justify-content: center; font-size: 1.1rem;">
+                    ( ${oldHash} - <span class="text-red">${oldV}×10<sup>${power}</sup></span> ) × 10 + <span class="text-green">${newV}</span>
+                </div>
+                <div class="math-step" style="border: none; justify-content: center; font-size: 1.5rem; font-weight: bold; color: var(--primary);">
+                    = ${newHash}
+                </div>
+            `;
+        }
+
         function init() {
-            text = document.getElementById('text-input').value.toUpperCase();
-            pattern = document.getElementById('pattern-input').value.toUpperCase();
+            // Sanitize inputs to only allow A-Z for the Base 10 logic to work properly
+            text = document.getElementById('text-input').value.toUpperCase().replace(/[^A-Z]/g, '');
+            pattern = document.getElementById('pattern-input').value.toUpperCase().replace(/[^A-Z]/g, '');
+            
+            document.getElementById('text-input').value = text;
+            document.getElementById('pattern-input').value = pattern;
             
             if (!text || !pattern || pattern.length > text.length) {
-                alert("Please enter valid text and pattern (Pattern must be shorter than Text).");
+                alert("Please enter valid A-Z text and pattern (Pattern must be shorter than Text).");
                 return;
             }
 
@@ -525,24 +482,18 @@
             stepBtn.innerText = "Compare Hashes";
 
             let index = 0;
-            for (let char of text) {
-                textRow.appendChild(createTile(char, 'text', index++));
-            }
+            for (let char of text) { textRow.appendChild(createTile(char, 'text', index++)); }
             index = 0;
-            for (let char of pattern) {
-                patternRow.appendChild(createTile(char, 'pattern', index++));
-            }
+            for (let char of pattern) { patternRow.appendChild(createTile(char, 'pattern', index++)); }
 
-            h = 1;
-            for (let i = 0; i < pattern.length - 1; i++) {
-                h = (h * d) % q;
-            }
-
+            // Calculate Base-10 Hashes directly without modulo
+            let M = pattern.length;
             pHash = 0;
             tHash = 0;
-            for (let i = 0; i < pattern.length; i++) {
-                pHash = (d * pHash + pattern.charCodeAt(i)) % q;
-                tHash = (d * tHash + text.charCodeAt(i)) % q;
+            
+            for (let i = 0; i < M; i++) {
+                pHash += charVal(pattern[i]) * Math.pow(10, M - 1 - i);
+                tHash += charVal(text[i]) * Math.pow(10, M - 1 - i);
             }
 
             pHashDisplay.innerText = pHash;
@@ -554,13 +505,9 @@
             pHashDisplay.className = 'hash-value';
             tHashDisplay.className = 'hash-value highlight';
 
-            updateStatus(`Initialization complete. Base (d) = ${d}, Prime (q) = ${q}.`, "var(--card-bg)", "var(--text-main)");
+            updateStatus(`Initialization complete. Using Base-10 Polynomial.`, "var(--card-bg)", "var(--text-main)");
             
-            formulaDisplay.innerHTML = `
-                <div class="math-step"><span class="math-op">Initial Window:</span> <span class="math-val">O(M) time</span></div>
-                <div class="math-step"><span class="math-op">Characters:</span> <span class="math-val">"${text.substring(0, pattern.length)}"</span></div>
-                <div class="math-step"><span class="math-op">Hash Value:</span> <span class="math-val text-blue">${tHash}</span></div>
-            `;
+            formulaDisplay.innerHTML = buildPolynomialHTML(text.substring(0, M), "Initial Window Math");
             
             setTimeout(() => highlightWindow(0, 'active'), pattern.length * 50 + 100);
         }
@@ -580,7 +527,7 @@
                     stepBtn.innerText = "Verify Characters";
                     stepState = 1;
                 } else {
-                    updateStatus(`Hashes Mismatch (${pHash} != ${tHash}). Characters are definitely different.`, "rgba(244, 63, 94, 0.1)", "var(--error)");
+                    updateStatus(`Hashes Mismatch (${pHash} != ${tHash}). Characters differ.`, "rgba(244, 63, 94, 0.1)", "var(--error)");
                     tHashDisplay.classList.remove('highlight');
                     tHashDisplay.classList.add('shake');
                     setTimeout(() => tHashDisplay.classList.remove('shake'), 500);
@@ -619,19 +566,18 @@
                 if (currentPos < N - M) {
                     let oldCharStr = text[currentPos];
                     let newCharStr = text[currentPos + M];
-                    let oldChar = text.charCodeAt(currentPos);
-                    let newChar = text.charCodeAt(currentPos + M);
                     
                     let tiles = document.querySelectorAll('.text-tile');
                     tiles[currentPos].classList.add('leaving');
                     tiles[currentPos + M].classList.add('entering');
 
                     currentPos++;
-                    patternRow.style.left = `${currentPos * 72}px`; // Updated to match 60px tile + 12px gap
+                    patternRow.style.left = `${currentPos * 72}px`; 
                     
                     let oldHash = tHash;
-                    tHash = (d * (tHash - oldChar * h) + newChar) % q;
-                    if (tHash < 0) tHash = (tHash + q); 
+                    // Base-10 Rolling Hash Math
+                    let power = Math.pow(10, M - 1);
+                    tHash = (tHash - (charVal(oldCharStr) * power)) * 10 + charVal(newCharStr);
 
                     tHashDisplay.innerText = tHash;
                     triggerValueAnimation(tHashDisplay);
@@ -639,14 +585,7 @@
                     tHashDisplay.className = 'hash-value highlight';
                     pHashDisplay.className = 'hash-value';
                     
-                    formulaDisplay.innerHTML = `
-                        <div class="math-step"><span class="math-op">Old Hash:</span> <span class="math-val">${oldHash}</span></div>
-                        <div class="math-step"><span class="math-op">- Remove '${oldCharStr}':</span> <span class="math-val text-red">-${oldChar} * ${h}</span></div>
-                        <div class="math-step"><span class="math-op">* Shift Left:</span> <span class="math-val text-blue">* ${d}</span></div>
-                        <div class="math-step"><span class="math-op">+ Add '${newCharStr}':</span> <span class="math-val text-green">+ ${newChar}</span></div>
-                        <div class="math-step"><span class="math-op">% Modulo:</span> <span class="math-val">% ${q}</span></div>
-                        <div class="math-step"><span class="math-op">New Hash =</span> <span class="math-val text-blue">${tHash}</span></div>
-                    `;
+                    formulaDisplay.innerHTML = buildRollingHTML(oldHash, oldCharStr, newCharStr, M, tHash);
                     
                     updateStatus(`Window slid right. Calculated Rolling Hash in O(1) time.`, "var(--card-bg)", "var(--text-main)");
                     
