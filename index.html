@@ -8,20 +8,19 @@
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap');
 
         :root {
-            /* Light Theme Palette */
-            --bg: #f8fafc;              /* Light gray-blue background */
-            --text-main: #000;       /* Dark slate text */
-            --text-muted: #000;      /* Medium slate gray */
-            --card-bg: #ffffff;         /* White cards */
-            --border: #e2e8f0;          /* Light gray border */
-            --primary: #3b82f6;         /* Blue */
-            --primary-glow: rgba(59, 130, 246, 0.4);
-            --success: #10b981;         /* Green */
-            --success-glow: rgba(16, 185, 129, 0.4);
-            --error: #ef4444;           /* Red */
-            --error-glow: rgba(239, 68, 68, 0.4);
-            --warning: #f59e0b;         /* Amber/Orange */
-            --tile-bg: #f1f5f9;         /* Very light gray for tiles */
+            --bg: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.5);
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.5);
+            --error: #f43f5e;
+            --error-glow: rgba(244, 63, 94, 0.5);
+            --warning: #f59e0b;
+            --tile-bg: #0f172a;
             --tile-size: 60px; 
         }
 
@@ -51,7 +50,7 @@
         .header h1 {
             font-size: 2.8rem;
             font-weight: 800;
-            background: linear-gradient(to right, #2563eb, #7c3aed);
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
             -webkit-background-clip: text;
             color: transparent;
             margin-bottom: 0.5rem;
@@ -85,7 +84,7 @@
             gap: 1rem; 
             align-items: flex-end; 
             flex-wrap: wrap;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
 
         .input-group {
@@ -103,7 +102,7 @@
         }
 
         input {
-            background: var(--card-bg);
+            background: var(--bg);
             color: var(--text-main);
             padding: 0.6rem 0.8rem; 
             border: 1px solid var(--border);
@@ -140,7 +139,7 @@
 
         button:hover:not(:disabled) { 
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 4px 10px var(--primary-glow);
+            box-shadow: 0 6px 15px var(--primary-glow);
         }
         
         button:disabled { 
@@ -153,10 +152,10 @@
 
         #step-btn {
             background-color: var(--warning);
-            color: white;
+            color: #000;
         }
         #step-btn:hover:not(:disabled) {
-            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.4);
         }
 
         /* --- VISUALIZER --- */
@@ -168,7 +167,7 @@
             width: 100%;
             overflow-x: auto;
             position: relative;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
             min-height: 250px;
         }
 
@@ -215,9 +214,9 @@
             font-weight: 600;
         }
 
-        .char-tile.active { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); transform: scale(1.1); z-index: 10; background: #ffffff; }
-        .char-tile.match { background: #dcfce7; border-color: var(--success); box-shadow: 0 0 15px var(--success-glow); color: #065f46; }
-        .char-tile.mismatch { background: #fee2e2; border-color: var(--error); box-shadow: 0 0 15px var(--error-glow); color: #991b1b; }
+        .char-tile.active { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); transform: scale(1.1); z-index: 10; }
+        .char-tile.match { background: rgba(16, 185, 129, 0.2); border-color: var(--success); box-shadow: 0 0 15px var(--success-glow); color: var(--success); }
+        .char-tile.mismatch { background: rgba(244, 63, 94, 0.2); border-color: var(--error); box-shadow: 0 0 15px var(--error-glow); color: var(--error); }
         .char-tile.leaving { border-color: var(--error); opacity: 0.5; transform: translateY(-15px) scale(0.9); }
         .char-tile.entering { border-color: var(--success); transform: translateY(15px) scale(1.1); }
 
@@ -229,7 +228,7 @@
             border: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
         }
 
         .info-card h3 {
@@ -255,7 +254,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
         .hash-display-container {
@@ -273,7 +271,7 @@
             font-weight: 800;
             font-family: 'Fira Code', monospace;
             color: var(--text-main);
-            background: var(--tile-bg);
+            background: var(--bg);
             padding: 0.5rem 1.5rem;
             border-radius: 12px;
             border: 1px solid var(--border);
@@ -282,8 +280,8 @@
             display: inline-block;
         }
 
-        .hash-value.highlight { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); transform: scale(1.08); background: #ffffff; }
-        .hash-value.success { color: var(--success); border-color: var(--success); box-shadow: 0 0 15px var(--success-glow); background: #ffffff; }
+        .hash-value.highlight { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); transform: scale(1.08); }
+        .hash-value.success { color: var(--success); border-color: var(--success); box-shadow: 0 0 20px var(--success-glow); }
 
         .math-pipeline {
             display: flex;
@@ -291,7 +289,7 @@
             gap: 0.6rem;
             font-family: 'Fira Code', monospace;
             font-size: 1.1rem; 
-            background: var(--tile-bg);
+            background: var(--bg);
             padding: 1.2rem;
             border-radius: 8px;
             border: 1px solid var(--border);
@@ -523,4 +521,10 @@
 
             if (stepState === 0) {
                 if (pHash === tHash) {
-    
+                    updateStatus(`Hashes Match (${pHash} == ${tHash})! Potential match found.`, "rgba(245, 158, 11, 0.2)", "var(--warning)");
+                    pHashDisplay.classList.add('pulse-match');
+                    tHashDisplay.classList.add('pulse-match');
+                    stepBtn.innerText = "Verify Characters";
+                    stepState = 1;
+                } else {
+                    updateStatus(`Hashes Mismatch (${pHash} != ${tHash}). Characters differ.`, "r
