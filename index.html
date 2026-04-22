@@ -527,4 +527,112 @@
                     stepBtn.innerText = "Verify Characters";
                     stepState = 1;
                 } else {
-                    updateStatus(`Hashes Mismatch (${pHash} != ${tHash}). Characters differ.`, "r
+                    updateStatus(`Hashes Mismatch (${pHash} != ${tHash}). Characters differ.`, "rgba(244, 63, 94, 0.1)", "var(--error)");
+                    tHashDisplay.classList.remove('highlight');
+                    tHashDisplay.classList.add('shake');
+                    setTimeout(() => tHashDisplay.classList.remove('shake'), 500);
+                    stepBtn.innerText = "Slide & Roll Hash";
+                    stepState = 2; 
+                }
+            } 
+            else if (stepState === 1) {
+                let match = true;
+                for (let j = 0; j < M; j++) {
+                    if (text[currentPos + j] !== pattern[j]) {
+                        match = false;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    updateStatus(`Exact Match Found at index ${currentPos}!`, "rgba(16, 185, 129, 0.2)", "var(--success)");
+                    highlightWindow(currentPos, 'match');
+                    document.querySelectorAll('.pattern-tile').forEach(t => t.classList.add('match'));
+                    pHashDisplay.className = 'hash-value success pulse-match';
+                    tHashDisplay.className = 'hash-value success pulse-match';
+                    stepBtn.innerText = "Slide & Continue";
+                    stepState = 2; 
+                } else {
+                    updateStatus(`Spurious Hit (Hash Collision)! Characters don't match.`, "rgba(244, 63, 94, 0.2)", "var(--error)");
+                    highlightWindow(currentPos, 'mismatch');
+                    document.querySelectorAll('.pattern-tile').forEach(t => t.classList.add('mismatch'));
+                    document.querySelector('.viz-container').classList.add('shake');
+                    setTimeout(() => document.querySelector('.viz-container').classList.remove('shake'), 500);
+                    stepBtn.innerText = "Slide & Roll Hash";
+                    stepState = 2;
+                }
+            } 
+            else if (stepState === 2) {
+                if (currentPos < N - M) {
+                    let oldCharStr = text[currentPos];
+                    let newCharStr = text[currentPos + M];
+                    
+                    let tiles = document.querySelectorAll('.text-tile');
+                    tiles[currentPos].classList.add('leaving');
+                    tiles[currentPos + M].classList.add('entering');
+
+                    currentPos++;
+                    patternRow.style.left = `${currentPos * 72}px`; 
+                    
+                    let oldHash = tHash;
+                    // Base-10 Rolling Hash Math
+                    let power = Math.pow(10, M - 1);
+                    tHash = (tHash - (charVal(oldCharStr) * power)) * 10 + charVal(newCharStr);
+
+                    tHashDisplay.innerText = tHash;
+                    triggerValueAnimation(tHashDisplay);
+                    
+                    tHashDisplay.className = 'hash-value highlight';
+                    pHashDisplay.className = 'hash-value';
+                    
+                    formulaDisplay.innerHTML = buildRollingHTML(oldHash, oldCharStr, newCharStr, M, tHash);
+                    
+                    updateStatus(`Window slid right. Calculated Rolling Hash in O(1) time.`, "var(--card-bg)", "var(--text-main)");
+                    
+                    setTimeout(() => {
+                        resetHighlights();
+                        highlightWindow(currentPos, 'active');
+                    }, 400); 
+
+                    stepBtn.innerText = "Compare Hashes";
+                    stepState = 0;
+                } else {
+                    updateStatus(`Search Complete! Reached the end of the text.`, "rgba(59, 130, 246, 0.2)", "var(--primary)");
+                    stepBtn.disabled = true;
+                    stepBtn.innerText = "Done";
+                    resetHighlights();
+                }
+            }
+        }
+
+        function highlightWindow(pos, className) {
+            let tiles = document.querySelectorAll('.text-tile');
+            for (let i = 0; i < pattern.length; i++) {
+                if (tiles[pos + i]) {
+                    tiles[pos + i].classList.add(className);
+                }
+            }
+        }
+
+        function resetHighlights() {
+            document.querySelectorAll('.char-tile').forEach(t => {
+                t.classList.remove('active', 'match', 'mismatch', 'leaving', 'entering');
+            });
+            pHashDisplay.classList.remove('pulse-match');
+            tHashDisplay.classList.remove('pulse-match');
+        }
+
+        function updateStatus(msg, bgColor, textColor) {
+            statusMsg.innerText = msg;
+            statusMsg.style.background = bgColor;
+            statusMsg.style.color = textColor;
+            statusMsg.style.borderColor = textColor;
+        }
+
+        startBtn.addEventListener('click', init);
+        stepBtn.addEventListener('click', step);
+
+        init();
+    </script>
+</body>
+</html>
